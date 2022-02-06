@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
+
+:root {
+    --header-height: 2.5em;
+    --sidebar-color-gray: #8C8C8C;
+    --sidebar-color-blue: #3483fa;
+    --sidebar-bg-color: #f5f5f5;
+    --content-bg-color: #ededed;
+    --header-bg-color: #fff159;
+    --sidebar-text-color: #777;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    background-color: var(--header-bg-color);
+    top: 0;
+    height: var(--header-height);
+}
+
+.content {
+    padding: 2em;
+    background-color: var(--content-bg-color);
+}
+
+/* sidebar */
+
+.sidebar {
+    user-select: none;
+    min-width: 60px;
+    height: calc(100vh - var(--header-height));
+    transition: min-width .4s;
+    overflow-x: hidden;
+    color: var(--sidebar-text-color);
+    position: sticky;
+    left: 0;
+    top: var(--header-height);
+}
+
+.sidebar::-webkit-scrollbar {
+    display:none;
+}
+
+.sidebar__list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar__list-item {
+    height: auto;
+    width: 100%;;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    font-size: .85em;
+}
+
+.sidebar svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--sidebar-color-gray)
+}
+
+.sidebar__hidden-content {
+    opacity: 0;
+}
+
+.sidebar__list-item.active svg {
+    fill: var(--sidebar-color-blue)
+}
+
+.sidebar__list-item-link {
+    min-width: max-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1em 0 1em 18px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    font-weight: 400;
+}
+
+/* blue hover */
+
+.sidebar__list-item-link:before { 
+    content: "";
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.sidebar__list-item-link:hover:before {
+    opacity: 1;
+    position: absolute;
+    left: 0;
+    content:"";
+    height: 100%;
+    width: 4px;
+    background-color: var(--sidebar-color-blue);
+}
+
+/* arrow submenu */
+
+.sidebar.open .sidebar__list-item.submenu:after {
+    z-index: -1;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    content: url("https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png");
+    transform: scale(0.6); 
+    transition: transform .4s;
+}
+
+.sidebar.open .sidebar__list-item.open::after {
+    transform: scale(-0.6); 
+}
+
+/* submenu */
+
+.sidebar__submenu {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    max-height: 0px;
+    font-size: .95em;
+}
+
+.sidebar__submenu-list {
+    list-style: none;
+    margin-left: 4em;
+    padding: 0;
+}
+
+.sidebar__submenu-list-item {
+    padding: .5em 0;
+    min-width: max-content;
+}
+.sidebar__submenu-list-item:first-child {
+    margin-top: .5em;
+}
+.sidebar__submenu-list-item:last-child {
+    margin-bottom: .5em;
+}
+
+.sidebar__submenu-list-item a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
+.sidebar__submenu-list-item a:hover {
+    color: var(--sidebar-color-blue)
+}
+
+/* Menu btn */
+
+.sidebar__menu-btn {
+    display: flex;
+    align-items: center;
+    margin: 2.5em 0 2.5em 18px;
+    min-width: max-content;
+}
+
+.sidebar__menu-btn-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+
+.sidebar__menu-btn-top,
+.sidebar__menu-btn-middle,
+.sidebar__menu-btn-bottom {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--sidebar-color-blue);
+    cursor: inherit;
+    transition: transform .4s;
+}
+
+/* OPEN */
+
+.sidebar.open {
+    min-width: 250px;
+}
+
+.sidebar__list-item-label {
+    transition: opacity .4s;
+    margin-left: .75em;
+    cursor: inherit;
+}
+
+.sidebar.open .sidebar__hidden-content {
+    width: auto;
+    height: auto;
+    opacity: 1;
+}
+
+.sidebar__menu-btn-label {
+    margin-left: .5em;
+    transition: opacity .4s;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.sidebar.open .sidebar__menu-btn-middle {
+    transform: scale(0);
+}
+.sidebar.open .sidebar__menu-btn-top {
+    transform: rotate(45deg) translate(5px, 4px);
+    
+}
+.sidebar.open .sidebar__menu-btn-bottom {
+    transform: rotate(-45deg) translate(5px, -4px);
+}
+
+.sidebar.open .sidebar__list-item.open > .sidebar__submenu {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    opacity: 1;
+    transition:all .4s;
+}
+
+
+
+
+
+
